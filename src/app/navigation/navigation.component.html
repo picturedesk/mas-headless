@@ -1,0 +1,21 @@
+<ul #navigation class="nav navbar-nav">
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="'/'">Home</a>
+  </li>
+
+  <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: menus }">
+  </ng-container>
+
+</ul>
+
+<ng-template #recursiveMenu let-menus>
+  <li *ngFor="let menu of menus" [class]="menu.fields.hasSubMenu ? menu.fields.level < 2 ? 'nav-item dropdown' : 'nav-item dropdown-submenu' : 'nav-item'" >
+    <a [routerLink]="menu.fields.hasSubMenu ? null : menu.fields.path" title="{{menu.fields.navigationTitle}}" role="button" (click)="open($event)"
+       [attr.data-toggle]="menu.fields.hasSubMenu ? 'dropdown' : null" aria-haspopup="true" aria-expanded="false" [class]="menu.fields.hasSubMenu ? 'nav-link dropdown-toggle' : 'nav-link'" >
+      {{menu.fields.navigationTitle}}
+    </a>
+    <ul class="dropdown-menu" *ngIf="menu.fields.hasSubMenu">
+      <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: menu.fields.childPages }"></ng-container>
+    </ul>
+  </li>
+</ng-template>

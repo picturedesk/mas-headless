@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,WAAY;EACV,aAAa,EAAE,IAAI",
+"sources": ["key-visual.component.scss"],
+"names": [],
+"file": "key-visual.component.css"
+}

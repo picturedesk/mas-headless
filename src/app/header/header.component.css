@@ -1,0 +1,12 @@
+.meta-nav ul {
+  display: flex;
+  margin: 0;
+  padding: 0; }
+  .meta-nav ul li {
+    display: block;
+    flex: 0 1 auto;
+    /* Default */
+    list-style-type: none;
+    padding-left: 20px; }
+
+/*# sourceMappingURL=header.component.css.map */

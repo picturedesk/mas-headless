@@ -1,0 +1,19 @@
+.logo {
+  position: absolute;
+  top: 100px; }
+  .logo .logo-image {
+    width: 100px; }
+
+:host-context(.logo-navbar) .logo {
+  display: none;
+  position: relative;
+  top: 0;
+  width: 30px; }
+  :host-context(.logo-navbar) .logo .logo-image {
+    width: 30px;
+    height: auto; }
+
+:host-context(.logo-navbar.show-logo) .logo {
+  display: block; }
+
+/*# sourceMappingURL=logo.component.css.map */

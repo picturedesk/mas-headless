@@ -1,0 +1,25 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <app-logo class="logo-navbar"></app-logo>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="container">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <app-navigation [menus]="menus"></app-navigation>
+    </div>
+    <div class="meta-nav">
+      <nav>
+        <ul>
+
+          <li><a href="/de">DE</a></li>
+          <li><a href="/fr">FR</a></li>
+          <li><a href="/it">IT</a></li>
+
+          <li><a href="/ueber-uns/kontakt.html">Kontakt</a></li>
+          <li><a href="https://traditional.picturedesk.ch">traditional.picturedesk.ch</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</nav>

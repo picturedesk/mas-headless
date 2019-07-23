@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "./assets/styles/variables.scss";
+
+// Common
+@import "./assets/styles/global.scss";
+@import "./assets/styles/mixins.scss";
+@import "./assets/styles/fonts.scss";
