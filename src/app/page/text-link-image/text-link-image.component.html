@@ -1,0 +1,16 @@
+<div class="text">
+  <h2 *ngIf="title">{{ title }}</h2>
+  <div class="row">
+    <div *ngIf="image" class="col-md-6">
+      <a *ngIf="link" [routerLink]="link">
+        <img [title]="linkLabel" [src]="image" [alt]="linkLabel" class="img-fluid">
+      </a>
+      <img *ngIf="!link" [title]="linkLabel" [src]="image" [alt]="linkLabel" class="img-fluid">
+    </div>
+
+    <div [class]="class">
+      <div [innerHTML]="text"></div>
+      <p *ngIf="link"><a [routerLink]="link" class="btn btn-primary" role="button">{{linkLabel}}</a></p>
+    </div>
+  </div>
+</div>

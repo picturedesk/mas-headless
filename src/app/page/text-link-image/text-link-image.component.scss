@@ -1,0 +1,13 @@
+@import "../../../assets/styles/_variables.scss";
+
+table {
+  width: 100%;
+
+  tr {
+    border-bottom: solid $gray-color 1px;
+  }
+
+  td {
+    padding: 10px 0 10px;
+  }
+}

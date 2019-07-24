@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {NotFoundComponent} from './not-found/not-found.component';
-import {HomeComponent} from './home/home.component';
+import {PageComponent} from './page/page.component';
+import {CONFIG} from './helpers/helpers';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: PageComponent,
+    data: {
+      id: CONFIG.contentTypeIds.overviewPage
+    }
   },
   {
     path: '**',

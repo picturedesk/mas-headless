@@ -16,6 +16,8 @@ import { KeyVisualComponent } from './key-visual/key-visual.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PageComponent } from './page/page.component';
+import { TextLinkImageComponent } from './page/text-link-image/text-link-image.component';
+import { ComponentDirective } from './component.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { PageComponent } from './page/page.component';
     KeyVisualComponent,
     HomeComponent,
     NotFoundComponent,
-    PageComponent
+    PageComponent,
+    TextLinkImageComponent,
+    ComponentDirective
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,8 @@ import { PageComponent } from './page/page.component';
   entryComponents: [
     HomeComponent,
     NotFoundComponent,
-    PageComponent
+    PageComponent,
+    TextLinkImageComponent
   ],
   bootstrap: [AppComponent]
 })

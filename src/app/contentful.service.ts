@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {createClient, Entry} from 'contentful';
+import {createClient, Entry, EntryCollection} from 'contentful';
 import {CONFIG} from './helpers/helpers';
 import {Menu} from './client.model';
 
@@ -26,8 +26,10 @@ export class ContentfulService {
     });
   }
 
-  getPage(id: string): Promise<Entry<any>> {
-    return this.cdaClient.getEntry(id);
+  getPageCollection(id: string): Promise<EntryCollection<any>> {
+    return this.cdaClient.getEntries({
+      'sys.id': id
+    });
   }
 }
 
