@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Entry, EntryCollection} from 'contentful';
 import {documentToHtmlString} from '@contentful/rich-text-html-renderer';
 import {Router} from '@angular/router';
-import {CmpComponent} from '../cmp.component';
 
 @Component({
   selector: 'app-text-link-image',

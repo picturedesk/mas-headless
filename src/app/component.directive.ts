@@ -1,7 +1,7 @@
 import {Directive, ViewContainerRef} from '@angular/core';
 
 @Directive({
-  selector: '[cmp-host]',
+  selector: '[appCmpHost]',
 })
 export class ComponentDirective {
 

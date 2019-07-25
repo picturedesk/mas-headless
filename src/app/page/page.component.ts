@@ -3,7 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {Entry, EntryCollection} from 'contentful';
 import {ContentfulService} from '../contentful.service';
 import {ComponentDirective} from '../component.directive';
-import {CmpComponent} from './cmp.component';
 import {convertComponent} from '../helpers/helpers';
 
 @Component({
@@ -11,10 +10,11 @@ import {convertComponent} from '../helpers/helpers';
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss']
 })
-export class PageComponent implements OnInit {
+export class PageComponent {
 
   @ViewChild(ComponentDirective, {static: true}) cmpHost: ComponentDirective;
 
+  loading = true;
   title: number;
   id: string;
   page: Entry<any>;
@@ -27,23 +27,34 @@ export class PageComponent implements OnInit {
     this.service.getPageCollection(this.id).then(entry => {
       this.page = entry.items[0];
       this.pageCollection = entry;
-      this.title = entry.items[0].fields.title;
-      this.loadComponent();
+      this.title = this.page.fields.title;
+      this.loadComponents();
+      this.loading = false;
     });
   }
 
-  ngOnInit() {
-  }
-
-  loadComponent() {
-    const component = convertComponent('textImage');
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-
+  loadComponents() {
     const viewContainerRef = this.cmpHost.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    componentRef.instance.componentId = this.pageCollection.items[0].fields.components[0].sys.id;
-    componentRef.instance.pageCollection = this.pageCollection;
+    this.getComponentsFromCollection().forEach(component => {
+      const componentFactory = this.componentFactoryResolver
+        .resolveComponentFactory(convertComponent(component.sys.contentType.sys.id));
+      const componentRef = viewContainerRef.createComponent(componentFactory);
+      componentRef.instance.componentId = component.sys.id;
+      componentRef.instance.pageCollection = this.pageCollection;
+    });
+  }
+
+  private getComponentsFromCollection(): Entry<any>[] {
+    const components: Entry<any>[] = [];
+    if (this.page.fields.components) {
+      this.page.fields.components.forEach( component => {
+        components.push(
+          this.pageCollection.includes.Entry.find(entry => entry.sys.id === component.sys.id)
+        );
+      });
+    }
+    return components;
   }
 }
