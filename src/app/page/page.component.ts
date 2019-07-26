@@ -4,17 +4,17 @@ import {Entry, EntryCollection} from 'contentful';
 import {ContentfulService} from '../contentful.service';
 import {ComponentDirective} from '../component.directive';
 import {convertComponent} from '../helpers/helpers';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss']
 })
-export class PageComponent {
+export class PageComponent implements OnInit {
 
   @ViewChild(ComponentDirective, {static: true}) cmpHost: ComponentDirective;
 
-  loading = true;
   title: number;
   id: string;
   page: Entry<any>;
@@ -22,15 +22,22 @@ export class PageComponent {
 
   constructor(private route: ActivatedRoute,
               private service: ContentfulService,
-              private componentFactoryResolver: ComponentFactoryResolver) {
+              private componentFactoryResolver: ComponentFactoryResolver,
+              private spinner: NgxSpinnerService) {
     this.id = this.route.snapshot.data.id;
     this.service.getPageCollection(this.id).then(entry => {
       this.page = entry.items[0];
       this.pageCollection = entry;
       this.title = this.page.fields.title;
       this.loadComponents();
-      this.loading = false;
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 500);
     });
+  }
+
+  ngOnInit() {
+    this.spinner.show();
   }
 
   loadComponents() {

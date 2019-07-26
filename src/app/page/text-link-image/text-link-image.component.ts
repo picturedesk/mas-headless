@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Entry, EntryCollection} from 'contentful';
 import {documentToHtmlString} from '@contentful/rich-text-html-renderer';
 import {Router} from '@angular/router';
+import {ContentfulService} from '../../contentful.service';
 
 @Component({
   selector: 'app-text-link-image',
@@ -17,40 +18,43 @@ export class TextLinkImageComponent implements OnInit {
   image: string;
   text: string;
   link: string;
+  linkExternal: string;
   linkLabel: string;
   class: string;
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router, private service: ContentfulService) { }
 
   ngOnInit() {
-    this.component = this.resolveComponentLink(this.componentId);
+    this.resolveComponentLink(this.componentId).then(component => {
+      this.title = component.fields.title ? component.fields.title : null;
+      this.image = component.fields.image ? this.resolveAssetLink(component.fields.image.sys.id) : null;
+      this.text = documentToHtmlString(component.fields.text);
+      this.linkExternal = this.getLink(component.fields);
+      this.link = component.fields.link && !this.linkExternal ? this.resolveInternalLink(component.fields.link.sys.id) : null;
+      this.linkLabel = component.fields.linkLabel;
 
-    // Assign Content
-    this.title = this.component.fields.title;
-    this.image = this.component.fields.image ? this.resolveAssetLink(this.component.fields.image.sys.id) : null;
-    this.text = documentToHtmlString(this.component.fields.text);
-    this.link = this.getLink(this.component.fields);
-    this.linkLabel = this.component.fields.linkLabel;
-
-    this.class = this.image ? 'col col-md-6' : 'col';
+      this.class = this.image ? 'col col-md-6' : 'col';
+    });
   }
 
-  getLink(obj: any): string {
-    switch (obj) {
-      case obj.externalLink:
-        return obj.externalLink;
-      case obj.internalDocument:
-        return this.resolveAssetLink(obj.internalDocument.sys.id);
-      case obj.link:
-        return this.resolveInternalLink(obj.link);
-      default:
-        return null;
+  getLink(obj: any): string | null {
+    if (obj.externalLink) {
+      return obj.externalLink;
+    } else if (obj.internalDocument) {
+      return this.resolveAssetLink(obj.internalDocument.sys.id);
+    } else {
+      return null;
     }
   }
 
-  private resolveComponentLink(id: string): Entry<any> {
-    return this.pageCollection.includes.Entry.find(entry => entry.sys.id === id);
+  private async resolveComponentLink(id: string): Promise<Entry<any>> {
+    let component = this.pageCollection.includes.Entry.find(entry => entry.sys.id === id);
+    if (!component) {
+      await this.service.getPageCollection(id).then(entry => {
+        component = entry.items[0];
+      });
+    }
+    return component;
   }
 
   private resolveAssetLink(id: string): string {
@@ -61,6 +65,14 @@ export class TextLinkImageComponent implements OnInit {
   private resolveInternalLink(id: string): string {
     const route = this.router.config.find(item => item.data.id === id);
     return route.path;
+  }
+
+  handleLink() {
+    if (this.linkExternal) {
+      window.location.href = this.linkExternal;
+    } else {
+      this.router.navigate([this.link]);
+    }
   }
 }
 

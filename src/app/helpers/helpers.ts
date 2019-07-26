@@ -1,5 +1,6 @@
 import {Type} from '@angular/core';
 import {TextLinkImageComponent} from '../page/text-link-image/text-link-image.component';
+import {HalfHalfComponent} from '../page/half-half/half-half.component';
 
 export const CONFIG = {
   space: '4ku70rkuyzwa',
@@ -14,8 +15,8 @@ export function convertComponent(type: string): Type<any> {
   switch (type) {
   case 'textImage':
     return TextLinkImageComponent;
-  case 'other':
-    return TextLinkImageComponent;
+  case 'halfHalf':
+    return HalfHalfComponent;
   default:
     return TextLinkImageComponent;
   }

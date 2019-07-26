@@ -18,6 +18,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { PageComponent } from './page/page.component';
 import { TextLinkImageComponent } from './page/text-link-image/text-link-image.component';
 import { ComponentDirective } from './component.directive';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import { HalfHalfComponent } from './page/half-half/half-half.component';
 
 @NgModule({
   declarations: [
@@ -30,20 +32,23 @@ import { ComponentDirective } from './component.directive';
     NotFoundComponent,
     PageComponent,
     TextLinkImageComponent,
-    ComponentDirective
+    ComponentDirective,
+    HalfHalfComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxSpinnerModule
   ],
   providers: [ContentfulService],
   entryComponents: [
     HomeComponent,
     NotFoundComponent,
     PageComponent,
-    TextLinkImageComponent
+    TextLinkImageComponent,
+    HalfHalfComponent
   ],
   bootstrap: [AppComponent]
 })
