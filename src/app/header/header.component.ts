@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Entry} from 'contentful';
+import {CONTACT} from '../helpers/helpers';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +10,12 @@ import {Entry} from 'contentful';
 export class HeaderComponent implements OnInit {
 
   @Input() menus: Entry<any>[];
+  contact: any;
 
   constructor() { }
 
   ngOnInit() {
+    this.contact = CONTACT.route;
   }
 
 }

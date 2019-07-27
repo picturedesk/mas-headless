@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {PageComponent} from './page/page.component';
 import {ContentfulService} from './contentful.service';
 import {Entry} from 'contentful';
+import {CONTACT} from './helpers/helpers';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,11 @@ export class AppComponent {
         this.menus = menu;
         this.generateNavigation();
       });
+    this.contentfulService.getPageCollectionById(CONTACT.id).then( entry => {
+        const page = entry.items[0];
+        this.registerRoute(page.fields.pageName, page.sys.id);
+      }
+    );
   }
 
   private generateNavigation() {

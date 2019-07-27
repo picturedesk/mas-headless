@@ -26,9 +26,15 @@ export class ContentfulService {
     });
   }
 
-  getPageCollection(id: string): Promise<EntryCollection<any>> {
+  getPageCollectionById(id: string): Promise<EntryCollection<any>> {
     return this.cdaClient.getEntries({
       'sys.id': id
+    });
+  }
+
+  getPageCollectionByPageName(pageName: string): Promise<EntryCollection<any>> {
+    return this.cdaClient.getEntries({
+      'fields.pageName': pageName
     });
   }
 }

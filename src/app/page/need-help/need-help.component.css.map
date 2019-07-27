@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,UAAW;EACT,KAAK,EAAE,IAAI",
+"sources": ["need-help.component.scss"],
+"names": [],
+"file": "need-help.component.css"
+}

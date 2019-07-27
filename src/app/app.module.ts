@@ -20,6 +20,7 @@ import { TextLinkImageComponent } from './page/text-link-image/text-link-image.c
 import { ComponentDirective } from './component.directive';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { HalfHalfComponent } from './page/half-half/half-half.component';
+import { NeedHelpComponent } from './page/need-help/need-help.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HalfHalfComponent } from './page/half-half/half-half.component';
     PageComponent,
     TextLinkImageComponent,
     ComponentDirective,
-    HalfHalfComponent
+    HalfHalfComponent,
+    NeedHelpComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { HalfHalfComponent } from './page/half-half/half-half.component';
     NotFoundComponent,
     PageComponent,
     TextLinkImageComponent,
-    HalfHalfComponent
+    HalfHalfComponent,
+    NeedHelpComponent
   ],
   bootstrap: [AppComponent]
 })

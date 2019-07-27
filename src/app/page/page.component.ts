@@ -19,16 +19,18 @@ export class PageComponent implements OnInit {
   id: string;
   page: Entry<any>;
   pageCollection: EntryCollection<any>;
+  description: any;
 
   constructor(private route: ActivatedRoute,
               private service: ContentfulService,
               private componentFactoryResolver: ComponentFactoryResolver,
               private spinner: NgxSpinnerService) {
     this.id = this.route.snapshot.data.id;
-    this.service.getPageCollection(this.id).then(entry => {
+    this.service.getPageCollectionById(this.id).then(entry => {
       this.page = entry.items[0];
       this.pageCollection = entry;
       this.title = this.page.fields.title;
+      this.description = this.page.fields.showDescription ? this.page.fields.description : null;
       this.loadComponents();
       setTimeout(() => {
         this.spinner.hide();
