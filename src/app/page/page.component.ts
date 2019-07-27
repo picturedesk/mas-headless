@@ -4,7 +4,8 @@ import {Entry, EntryCollection} from 'contentful';
 import {ContentfulService} from '../contentful.service';
 import {ComponentDirective} from '../component.directive';
 import {convertComponent} from '../helpers/helpers';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-page',
@@ -15,7 +16,7 @@ export class PageComponent implements OnInit {
 
   @ViewChild(ComponentDirective, {static: true}) cmpHost: ComponentDirective;
 
-  title: number;
+  title: string;
   id: string;
   page: Entry<any>;
   pageCollection: EntryCollection<any>;
@@ -24,7 +25,8 @@ export class PageComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private service: ContentfulService,
               private componentFactoryResolver: ComponentFactoryResolver,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService,
+              private titleService: Title) {
     this.id = this.route.snapshot.data.id;
     this.service.getPageCollectionById(this.id).then(entry => {
       this.page = entry.items[0];
@@ -32,9 +34,12 @@ export class PageComponent implements OnInit {
       this.title = this.page.fields.title;
       this.description = this.page.fields.showDescription ? this.page.fields.description : null;
       this.loadComponents();
+      // Set Browser Title
+      this.titleService.setTitle( this.title );
+      // Hide Spinner
       setTimeout(() => {
         this.spinner.hide();
-      }, 500);
+      }, 200);
     });
   }
 
@@ -58,7 +63,7 @@ export class PageComponent implements OnInit {
   private getComponentsFromCollection(): Entry<any>[] {
     const components: Entry<any>[] = [];
     if (this.page.fields.components) {
-      this.page.fields.components.forEach( component => {
+      this.page.fields.components.forEach(component => {
         components.push(
           this.pageCollection.includes.Entry.find(entry => entry.sys.id === component.sys.id)
         );
