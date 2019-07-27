@@ -1,17 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {PageComponent} from './page/page.component';
 import {CONFIG} from './helpers/helpers';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: PageComponent,
-    data: {
-      id: CONFIG.contentTypeIds.overviewPage
-    }
-  },
   {
     path: '**',
     component: NotFoundComponent
@@ -19,7 +12,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

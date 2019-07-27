@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 // HttpClient module for RESTful API
 import {HttpClientModule} from '@angular/common/http';
@@ -21,6 +21,8 @@ import { ComponentDirective } from './component.directive';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { HalfHalfComponent } from './page/half-half/half-half.component';
 import { NeedHelpComponent } from './page/need-help/need-help.component';
+import { AccordionComponent } from './page/accordion/accordion.component';
+import {onAppInit} from './app.init';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { NeedHelpComponent } from './page/need-help/need-help.component';
     TextLinkImageComponent,
     ComponentDirective,
     HalfHalfComponent,
-    NeedHelpComponent
+    NeedHelpComponent,
+    AccordionComponent
   ],
   imports: [
     BrowserModule,
@@ -44,14 +47,22 @@ import { NeedHelpComponent } from './page/need-help/need-help.component';
     FormsModule,
     NgxSpinnerModule
   ],
-  providers: [ContentfulService],
+  providers: [
+    ContentfulService,
+    {
+    provide: APP_INITIALIZER,
+    useFactory: onAppInit,
+    multi: true,
+    deps: [Injector]
+  }],
   entryComponents: [
     HomeComponent,
     NotFoundComponent,
     PageComponent,
     TextLinkImageComponent,
     HalfHalfComponent,
-    NeedHelpComponent
+    NeedHelpComponent,
+    AccordionComponent
   ],
   bootstrap: [AppComponent]
 })
