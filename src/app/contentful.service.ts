@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {createClient, Entry, EntryCollection} from 'contentful';
-import {CONFIG} from './helpers/helpers';
-import {Menu} from './client.model';
+import {CONFIG} from './helpers/config';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +35,16 @@ export class ContentfulService {
     return this.cdaClient.getEntries({
       'fields.pageName': pageName
     });
+  }
+
+  async resolveComponentLink(id: string, pageCollection: EntryCollection<any>): Promise<Entry<any>> {
+    let component = pageCollection.includes.Entry.find(entry => entry.sys.id === id);
+    if (!component) {
+      await this.getPageCollectionById(id).then(entry => {
+        component = entry.items[0];
+      });
+    }
+    return component;
   }
 }
 

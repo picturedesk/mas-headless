@@ -2,7 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Entry, EntryCollection} from 'contentful';
 import {documentToHtmlString} from '@contentful/rich-text-html-renderer';
 import {Router} from '@angular/router';
-import {resolveComponentLink, resolveInternalLinkById} from '../../helpers/helpers';
+import {resolveInternalLinkById} from '../../helpers/helpers';
+import {ContentfulService} from '../../contentful.service';
 
 @Component({
   selector: 'app-text-link-image',
@@ -22,10 +23,10 @@ export class TextLinkImageComponent implements OnInit {
   linkLabel: string;
   class: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private service: ContentfulService) { }
 
   ngOnInit() {
-    resolveComponentLink(this.componentId, this.pageCollection).then(component => {
+    this.service.resolveComponentLink(this.componentId, this.pageCollection).then(component => {
       this.title = component.fields.title ? component.fields.title : null;
       this.image = component.fields.image ? this.resolveAssetLink(component.fields.image.sys.id) : null;
       this.text = documentToHtmlString(component.fields.text);

@@ -8,14 +8,19 @@
 
 </ul>
 
-<ng-template #recursiveMenu let-menus>
+<ng-template #recursiveMenu let-menus let-last="last">
+  <li class="nav-item" *ngIf="last">
+    <a [routerLink]="last.path" [title]="last.navigationTitle" role="button" (click)="open($event)" aria-haspopup="true" aria-expanded="false" class="nav-link" >
+      {{last.navigationTitle}}
+    </a>
+  </li>
   <li *ngFor="let menu of menus" [class]="menu.fields.hasSubMenu ? menu.fields.level < 2 ? 'nav-item dropdown' : 'nav-item dropdown-submenu' : 'nav-item'" >
-    <a [routerLink]="menu.fields.hasSubMenu ? null : menu.fields.path" title="{{menu.fields.navigationTitle}}" role="button" (click)="open($event)"
+    <a [routerLink]="menu.fields.hasSubMenu ? null : menu.fields.path" [title]="menu.fields.navigationTitle" role="button" (click)="open($event)"
        [attr.data-toggle]="menu.fields.hasSubMenu ? 'dropdown' : null" aria-haspopup="true" aria-expanded="false" [class]="menu.fields.hasSubMenu ? 'nav-link dropdown-toggle' : 'nav-link'" >
       {{menu.fields.navigationTitle}}
     </a>
     <ul class="dropdown-menu" *ngIf="menu.fields.hasSubMenu">
-      <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: menu.fields.childPages }"></ng-container>
+      <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: menu.fields.childPages, last: { navigationTitle: menu.fields.navigationTitle, path: menu.fields.path }}"></ng-container>
     </ul>
   </li>
 </ng-template>

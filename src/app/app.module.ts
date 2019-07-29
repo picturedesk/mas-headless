@@ -23,6 +23,9 @@ import { HalfHalfComponent } from './page/half-half/half-half.component';
 import { NeedHelpComponent } from './page/need-help/need-help.component';
 import { AccordionComponent } from './page/accordion/accordion.component';
 import {onAppInit} from './app.init';
+import { FormComponent } from './page/form/form.component';
+import { LineSpaceComponent } from './page/line-space/line-space.component';
+import { TeaserDownloadComponent } from './page/teaser-download/teaser-download.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import {onAppInit} from './app.init';
     ComponentDirective,
     HalfHalfComponent,
     NeedHelpComponent,
-    AccordionComponent
+    AccordionComponent,
+    FormComponent,
+    LineSpaceComponent,
+    TeaserDownloadComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,10 @@ import {onAppInit} from './app.init';
     TextLinkImageComponent,
     HalfHalfComponent,
     NeedHelpComponent,
-    AccordionComponent
+    AccordionComponent,
+    FormComponent,
+    LineSpaceComponent,
+    TeaserDownloadComponent
   ],
   bootstrap: [AppComponent]
 })

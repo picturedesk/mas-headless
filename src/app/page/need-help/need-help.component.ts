@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {EntryCollection} from 'contentful';
 import {ContentfulService} from '../../contentful.service';
 import {documentToHtmlString} from '@contentful/rich-text-html-renderer';
-import { INLINES } from '@contentful/rich-text-types';
+import {INLINES} from '@contentful/rich-text-types';
 import {resolveInternalLinkById} from '../../helpers/helpers';
 import {Router} from '@angular/router';
 
@@ -35,7 +35,6 @@ export class NeedHelpComponent implements OnInit {
         }
       }
     };
-
-    return documentToHtmlString(text, options);
+    return documentToHtmlString(text, options).replace(/(?:\r\n|\r|\n)/g, '<br>');
   }
 }

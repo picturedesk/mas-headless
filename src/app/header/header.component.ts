@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Entry} from 'contentful';
-import {CONTACT} from '../helpers/helpers';
+import {CONTACT} from '../helpers/config';
 
 @Component({
   selector: 'app-header',

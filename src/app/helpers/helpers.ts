@@ -3,21 +3,13 @@ import {TextLinkImageComponent} from '../page/text-link-image/text-link-image.co
 import {HalfHalfComponent} from '../page/half-half/half-half.component';
 import {NeedHelpComponent} from '../page/need-help/need-help.component';
 import {Icon} from '../model/client.model';
-import {Entry, EntryCollection} from 'contentful';
+import {Entry} from 'contentful';
 import {Router} from '@angular/router';
 import {AccordionComponent} from '../page/accordion/accordion.component';
 import {PageComponent} from '../page/page.component';
-
-export const CONFIG = {
-  space: '4ku70rkuyzwa',
-  accessToken: '7eMyhfv0zCbS6Mv5sKoSPz4EwwiM_UTqHRUA1fEEAeM',
-
-  contentTypeIds: {
-    overviewPage: '28Ep5txTOUmKycEnzl3Cwi'
-  }
-};
-
-export const CONTACT = {id: '6q5WiWtgch56PcBP0MajaL', route: 'kontakt'};
+import {FormComponent} from '../page/form/form.component';
+import {LineSpaceComponent} from '../page/line-space/line-space.component';
+import {TeaserDownloadComponent} from '../page/teaser-download/teaser-download.component';
 
 export function convertComponent(type: string): Type<any> {
   switch (type) {
@@ -29,6 +21,12 @@ export function convertComponent(type: string): Type<any> {
       return NeedHelpComponent;
     case 'accordion':
       return AccordionComponent;
+    case 'form':
+      return FormComponent;
+    case 'lineSpace':
+      return LineSpaceComponent;
+    case 'teaserDownload':
+      return TeaserDownloadComponent;
     default:
       return TextLinkImageComponent;
   }
@@ -45,17 +43,6 @@ export function getIcons(): Icon[] {
     file: 'bill.png',
     type: 'bill'
   }] as Icon[];
-}
-
-
-export async function resolveComponentLink(id: string, pageCollection: EntryCollection<any>): Promise<Entry<any>> {
-  let component = pageCollection.includes.Entry.find(entry => entry.sys.id === id);
-  if (!component) {
-    await this.service.getPageCollectionById(id).then(entry => {
-      component = entry.items[0];
-    });
-  }
-  return component;
 }
 
 export function resolveInternalLinkById(id: string, router: Router): string {
@@ -88,7 +75,8 @@ export function generateNavigation(menu: Entry<any>[], router: Router) {
             ...childPage2.fields,
             path: childPage.fields.pageName + '/' + childPage2.fields.pageName,
             level: 2,
-            hasSubMenu: !!childPage2.fields.childPages
+            // tslint:disable-next-line:max-line-length
+            hasSubMenu: !!childPage2.fields.childPages && childPage2.fields.childPages.filter(page => !page.fields.hideInNavigation).length > 0
           };
 
           registerRoute(childPage.fields.pageName + '/' + childPage2.fields.pageName, childPage2.sys.id, router);

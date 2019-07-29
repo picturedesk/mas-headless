@@ -1,8 +1,9 @@
 import { Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import {CONFIG, CONTACT, generateNavigation, registerRoute} from './helpers/helpers';
+import {generateNavigation, registerRoute} from './helpers/helpers';
 import {ContentfulService} from './contentful.service';
 import {PageComponent} from './page/page.component';
+import {CONFIG, CONTACT} from './helpers/config';
 
 export function onAppInit(injector: Injector): () => Promise<any> {
   return (): Promise<any> => {
