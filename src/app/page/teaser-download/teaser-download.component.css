@@ -1,0 +1,8 @@
+.teaser-download ul {
+  padding: 0; }
+  .teaser-download ul li.icon-pdf {
+    list-style-type: none;
+    padding-left: 25px;
+    background: url("../../../assets/images/icons/pdf.png") no-repeat 0px 3px; }
+
+/*# sourceMappingURL=teaser-download.component.css.map */

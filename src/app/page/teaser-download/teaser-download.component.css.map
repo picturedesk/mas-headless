@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,mBAAoB;EAClB,OAAO,EAAE,CAAC;EAEV,+BAAY;IACV,eAAe,EAAE,IAAI;IACrB,YAAY,EAAE,IAAI;IAClB,UAAU,EAAE,6DAA6D",
+"sources": ["teaser-download.component.scss"],
+"names": [],
+"file": "teaser-download.component.css"
+}
