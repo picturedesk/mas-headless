@@ -25,7 +25,7 @@ export class NavigationComponent {
     }
   }
 
-  @HostListener('document:click', ['$event'])
+  @HostListener('document:click')
   removeOpenClasses() {
     this.navigation.nativeElement.querySelectorAll('li.nav-item').forEach(element => {
       element.classList.remove('open');
