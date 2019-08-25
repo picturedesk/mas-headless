@@ -37,9 +37,10 @@ export class PageComponent implements OnInit {
       // Set Browser Title
       this.titleService.setTitle( this.title );
       // Hide Spinner
-      setTimeout(() => {
+      this.spinner.hide();
+      /*setTimeout(() => {
         this.spinner.hide();
-      }, 200);
+      }, 200);*/
     });
   }
 
